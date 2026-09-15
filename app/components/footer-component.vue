@@ -7,8 +7,6 @@
   </footer>
 </template>
 
-<script setup>
-defineProps(["content"]);
+<script setup lang="ts">
+defineProps<{ content: string[] }>();
 </script>
-
-<style lang="scss" scoped></style>

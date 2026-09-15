@@ -41,10 +41,7 @@ export default defineNuxtConfig({
           content:
             "Machine Learning & Full-Stack Software Engineer with 4+ years of experience building smart, scalable applications with TensorFlow, Vue.js, React, and Python.",
         },
-        { property: "og:url", content: "https://ali-elsayed.vercel.app" },
         { property: "og:site_name", content: "Ali Elsayed Portfolio" },
-        { property: "og:locale", content: "en_US" },
-        { property: "og:locale:alternate", content: "tr_TR" },
         {
           property: "og:image",
           content: "https://ali-elsayed.vercel.app/og-image.jpg",
@@ -80,19 +77,6 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-        { rel: "canonical", href: "https://ali-elsayed.vercel.app" },
-        {
-          rel: "preconnect",
-          href: "https://fonts.googleapis.com",
-          fetchpriority: "high",
-        },
-        {
-          rel: "preconnect",
-          href: "https://fonts.gstatic.com",
-          crossorigin: "anonymous",
-          fetchpriority: "high",
-        },
-        { rel: "dns-prefetch", href: "https://api.iconify.design" },
       ],
       script: [
         {
@@ -138,11 +122,10 @@ export default defineNuxtConfig({
   modules: [
     "@nuxt/ui",
     "@nuxt/eslint",
-    "@nuxt/fonts",
-    "@nuxt/icon",
     "@nuxtjs/i18n",
     "motion-v/nuxt",
-    "nuxt-nodemailer",
+    "@vercel/analytics/nuxt",
+    "@vercel/speed-insights/nuxt",
   ],
   fonts: {
     defaults: {
@@ -157,42 +140,10 @@ export default defineNuxtConfig({
       { code: "tr", language: "tr-TR", file: "tr.json" },
     ],
     defaultLocale: "en",
-  },
-  nodemailer: {
-    from: process.env.SENDER || "ali-hisham@hotmail.com",
-    host: process.env.SMTP_SERVER || "smtp-relay.brevo.com",
-    port: process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587,
-    secure: false,
-    auth: {
-      user: process.env.LOGIN,
-      pass: process.env.PASSWORD,
-    },
+    strategy: "prefix_except_default",
+    baseUrl: "https://ali-elsayed.vercel.app",
   },
   css: ["~/assets/css/main.css"],
-
-  vite: {
-    build: {
-      cssCodeSplit: true,
-      minify: "terser",
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        },
-      },
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            motion: ["motion-v"],
-            swiper: ["swiper/vue", "swiper/modules"],
-          },
-        },
-      },
-    },
-    optimizeDeps: {
-      include: ["@vueuse/core"],
-    },
-  },
 
   routeRules: {
     "/": {
@@ -204,7 +155,7 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
     prerender: {
       crawlLinks: true,
-      routes: ["/", "/sitemap.xml"],
+      routes: ["/", "/tr", "/sitemap.xml"],
     },
   },
 

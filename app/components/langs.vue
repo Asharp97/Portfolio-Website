@@ -23,9 +23,8 @@
   </ul>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { motion } from "motion-v";
-defineProps(["content"]);
+defineOptions({ name: "LanguageSkills" });
+defineProps<{ content: { label: string; value: number }[] }>();
 </script>
-
-<style lang="scss" scoped></style>

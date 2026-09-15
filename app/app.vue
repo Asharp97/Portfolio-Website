@@ -1,15 +1,9 @@
 <template>
-  <!-- <Lenis root> -->
-  <Noise-overlay />
-  <NuxtLayout>
-    <Analytics />
+  <UApp>
+    <Noise-overlay />
     <NuxtPage />
-  </NuxtLayout>
-  <!-- </Lenis> -->
+  </UApp>
 </template>
-<script setup lang="ts">
-import { Analytics } from "@vercel/analytics/nuxt";
-</script>
 <style>
 html {
   scroll-behavior: smooth;

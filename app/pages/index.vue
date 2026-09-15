@@ -1,9 +1,9 @@
 <template>
-  <div id="home" ref="bod">
+  <div id="home">
     <div
       class="min-h-dvh bg-[radial-gradient(circle,#f2f2f2_20%,transparent_200%),url('/img/bg.svg')] dark:bg-[radial-gradient(circle,black_10%,transparent_170%),url('/img/bg.svg')] bg-repeat bg-size-[100%_100%,200px] bg-[no-repeat,repeat] bg-fixed py-30">
       <LazyMouseFollower
-        v-if="mounted"
+        v-if="mounted && !isMobile"
         :enable-follower="enableFollower"
         :text="title"
         class="absolute z-20 hidden md:block" />
@@ -30,7 +30,7 @@
               🍪 {{ t("cookie.message") }}
               <div class="font-light text-sm">{{ t("cookie.subtitle") }}</div>
               <Icon
-                name="ic:sharp-cancel"
+                name="lucide:circle-x"
                 class="absolute -top-1 -right-2 text-lg hover:rotate-90 duration-300 hover:scale-110 cursor-pointer"
                 @click="closeCookieDisclaimer()" />
             </div>
@@ -39,14 +39,15 @@
             <Transition name="rotate" mode="out-in">
               <button
                 v-show="!switchingTheme"
+                :aria-label="isDark ? t('theme.light') : t('theme.dark')"
                 :class="bubbleClass"
                 class="ml-auto"
                 @click="switchTheme()">
                 <Icon
                   :name="
                     isDark
-                      ? 'material-symbols:light-mode'
-                      : 'material-symbols:dark-mode'
+                      ? 'lucide:sun'
+                      : 'lucide:moon'
                   " />
               </button>
             </Transition>
@@ -65,6 +66,7 @@
               class="col-span-1 group/outer sm:col-span-2 md:col-span-6 lg:col-span-12">
               <Card
                 class="card h-fit!"
+                name="hero"
                 :class="
                   heroHovered || title === '' || title === t('title.hero')
                     ? ''
@@ -85,108 +87,28 @@
                 ">
                 <Hero-component
                   :locale="locale"
-                  :titles="content.titles"
+                  :sections="portfolioSections"
                   :summary="content.summary"
                   :is-mobile="isMobile"
                   @set-title="activateContent" />
               </Card>
             </div>
-            <!-- Experiences -->
             <div
-              class="col-span-1 group/outer sm:col-span-2 md:col-span-3 lg:col-span-7">
+              v-for="section in portfolioSections"
+              :key="section.id"
+              class="col-span-1 group/outer sm:col-span-2 relative"
+              :class="section.columns">
               <Card
-                :id="t('title.experiences')"
+                :id="section.id"
                 class="card"
-                :class="
-                  title === '' || title === content.titles[0] ? '' : fadeBack
-                "
-                :content="content.experience"
-                :delay="3 * delayCoeff + 'ms'"
-                :name="content.titles[0]"
+                :class="title === '' || title === section.title ? '' : fadeBack"
+                :content="section.content"
+                :name="section.title"
                 @click="enableFollower = !enableFollower"
-                @mouseenter="activateContent('title.experiences')"
-                @mouseleave="activateContent()" />
-            </div>
-            <!-- SKills -->
-            <div
-              class="col-span-1 group/outer sm:col-span-2 md:col-span-3 lg:col-span-5">
-              <Card
-                :id="t('title.skills')"
-                class="card"
-                :class="
-                  title === '' || title === content.titles[1] ? '' : fadeBack
-                "
-                :content="content.skills"
-                :delay="4 * delayCoeff + 'ms'"
-                :name="content.titles[1]"
-                @click="enableFollower = !enableFollower"
-                @mouseenter="activateContent('title.skills')"
-                @mouseleave="activateContent()" />
-            </div>
-            <!-- Side Projects -->
-            <div
-              class="col-span-1 group/outer sm:col-span-2 md:col-span-3 lg:col-span-5 relative">
-              <Card
-                :id="t('title.projects')"
-                class="card"
-                :class="
-                  title === '' || title === content.titles[2] ? '' : fadeBack
-                "
-                :content="content.projects"
-                :delay="1 * delayCoeff + 'ms'"
-                :name="content.titles[2]"
-                @click="enableFollower = !enableFollower"
-                @mouseenter="activateContent('title.projects')"
-                @mouseleave="activateContent()" />
-            </div>
-            <!-- Education -->
-            <div
-              class="col-span-1 group/outer sm:col-span-2 md:col-span-3 lg:col-span-5 relative">
-              <Card
-                :id="t('title.education')"
-                class="card"
-                :class="
-                  title === '' || title === content.titles[3] ? '' : fadeBack
-                "
-                :content="content.education"
-                :delay="1 * delayCoeff + 'ms'"
-                :name="content.titles[3]"
-                @click="enableFollower = !enableFollower"
-                @mouseenter="activateContent('title.education')"
-                @mouseleave="activateContent()" />
-            </div>
-            <!-- Languages  -->
-            <div
-              class="col-span-1 group/outer sm:col-span-2 md:col-span-2 lg:col-span-2 relative">
-              <Card
-                :id="t('title.languages')"
-                class="card"
-                :delay="4 * delayCoeff + 'ms'"
-                :name="content.titles[4]"
-                :class="
-                  title === '' || title === content.titles[4] ? '' : fadeBack
-                "
-                @click="enableFollower = !enableFollower"
-                @mouseenter="activateContent('title.languages')"
+                @mouseenter="activateContent('title.' + section.id)"
                 @mouseleave="activateContent()">
-                <Langs :content="content.languages.points" />
+                <Langs v-if="section.id === 'languages'" :content="content.languages.points" />
               </Card>
-            </div>
-            <!-- Certificates -->
-            <div
-              class="col-span-1 group/outer sm:col-span-2 md:col-span-4 lg:col-span-6 relative">
-              <Card
-                :id="t('title.certificates')"
-                class="card"
-                :class="
-                  title === '' || title === content.titles[5] ? '' : fadeBack
-                "
-                :delay="4 * delayCoeff + 'ms'"
-                :content="content.certificates"
-                :name="content.titles[5]"
-                @click="enableFollower = !enableFollower"
-                @mouseenter="activateContent('title.certificates')"
-                @mouseleave="activateContent()" />
             </div>
             <!-- Contact Form-->
             <div
@@ -207,7 +129,7 @@
             <!-- Footer -->
             <div
               class="col-span-1 group/outer sm:col-span-2 md:col-span-6 lg:col-span-12 relative">
-              <Card class="card" :delay="5 * delayCoeff + 'ms'">
+              <Card class="card">
                 <LazyFooterComponent :content="content.footer" />
               </Card>
             </div>
@@ -221,45 +143,47 @@
 <script setup lang="ts">
 import contentEn from "../static/content-en.json";
 import contentTr from "../static/content-tr.json";
-import { useDark, useToggle } from "@vueuse/core";
-import { useScroll } from "motion-v";
+import { useMediaQuery, useMounted, useWindowScroll } from "@vueuse/core";
 
-const mounted = ref(false);
+const mounted = useMounted();
 
 const switchingLocale = ref(false);
 const switchingTheme = ref(false);
 
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
+const colorMode = useColorMode();
+const isDark = computed(() => colorMode.value === "dark");
 const switchTheme = async () => {
   switchingTheme.value = true;
   await wait(100);
-  toggleDark();
+  colorMode.preference = isDark.value ? "light" : "dark";
   switchingTheme.value = false;
 };
 const switchLocale = async () => {
   switchingLocale.value = true;
   await wait(100);
-  await setLocale(locale.value == "en" ? "tr" : "en");
-  switchingLocale.value = false;
+  try {
+    await setLocale(locale.value == "en" ? "tr" : "en");
+    title.value = "";
+    heroHovered.value = false;
+  } finally {
+    switchingLocale.value = false;
+  }
 };
 
-const { scrollY } = useScroll();
-const scroll = ref(0);
-useMotionValueEvent(scrollY, "change", (latest) => {
-  scroll.value = latest;
-});
+const { y: scroll } = useWindowScroll();
 
 const { locale, setLocale, t } = useI18n();
-const content = computed(() => {
-  switch (locale.value) {
-    case "tr":
-      return contentTr;
-    case "en":
-    default:
-      return contentEn;
-  }
-});
+const content = computed(() => locale.value === "tr" ? contentTr : contentEn);
+const portfolioSections = computed(() => [
+  { id: "experiences", content: content.value.experience, columns: "md:col-span-3 lg:col-span-7" },
+  { id: "skills", content: content.value.skills, columns: "md:col-span-3 lg:col-span-5" },
+  { id: "projects", content: content.value.projects, columns: "md:col-span-3 lg:col-span-5" },
+  { id: "education", content: content.value.education, columns: "md:col-span-3 lg:col-span-5" },
+  { id: "languages", content: undefined, columns: "md:col-span-2 lg:col-span-2" },
+  { id: "certificates", content: content.value.certificates, columns: "md:col-span-4 lg:col-span-6" },
+].map(section => ({ ...section, title: t('title.' + section.id) })));
+const localeHead = useLocaleHead({ seo: true });
+useHead(() => ({ link: localeHead.value.link, meta: localeHead.value.meta }));
 
 // Dynamic SEO meta tags based on locale
 useHead({
@@ -289,7 +213,7 @@ useHead({
 
 const title = ref("");
 const heroHovered = ref(false);
-const activateContent = async (key: string = "") => {
+const activateContent = (key: string = "") => {
   title.value = key ? t(key) : "";
 };
 const enableFollower = ref(true);
@@ -297,20 +221,14 @@ const enableFollower = ref(true);
 const bubbleClass =
   "text-lg uppercase text-white hover:tracking-widest font-normal bg-copper-500 dark:bg-slate-500 flex justify-center items-center w-15 h-15 hover:translate-y-1 duration-300 rounded-full cursor-pointer";
 
-const isMobile = ref(false);
-const delayCoeff = computed(() => (isMobile.value ? 0 : 80));
+const isMobile = useMediaQuery("(max-width: 767px)");
 
 const cookieDisclaimer = useCookie("cookie-disclaimer", {
-  expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+  maxAge: 30 * 24 * 60 * 60,
 });
 const showCookieDisclaimer = ref(false);
 
 onMounted(() => {
-  // Detect mobile for performance optimizations
-  isMobile.value = window.innerWidth < 768;
-
-  mounted.value = true;
-
   // Show cookie disclaimer immediately if not accepted
   if (cookieDisclaimer.value !== "accepted") {
     showCookieDisclaimer.value = true;

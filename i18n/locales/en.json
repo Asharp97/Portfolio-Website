@@ -2,7 +2,8 @@
   "error": {
     "header": "Oops! This page doesn’t exist.",
     "text": "Looks like you’ve wandered off the map. No worries — let’s get you back home.",
-    "button": "Homepage"
+    "button": "Homepage",
+    "generic": "Something went wrong."
   },
   "title": {
     "hero": "Hi there!",
@@ -35,5 +36,9 @@
   "cookie": {
     "message": "Hey! I use cookies to make your experience better.",
     "subtitle": "Don't worry, they're harmless cookies 😋"
+  },
+  "theme": {
+    "light": "Switch to light theme",
+    "dark": "Switch to dark theme"
   }
 }

@@ -1,38 +1,43 @@
-# **Ali Elsayed's Portfolio Website**
+# Ali Elsayed's portfolio
 
-Welcome to my portfolio! This website showcases my journey as a **Machine Learning Engineer** and **Full-Stack Developer**, highlighting my projects, skills, and professional achievements.
+Bilingual Nuxt 4 / Vue portfolio, deployed at [ali-elsayed.vercel.app](https://ali-elsayed.vercel.app).
+English lives at `/`; Turkish lives at `/tr`.
 
-## 🌟 **About the Portfolio**
+## Development
 
-This website is designed to present my technical expertise and creative projects in a user-friendly and interactive way. It features:
+Use Node.js 22.18+ or 24+ and pnpm 11+.
 
-- A clean, responsive design for seamless navigation
-- Project highlights including **Quizly**, **Landclub**, and other key applications
-- Insights into my **certifications**, **educational background**, and **professional experience**
-- Links to my **GitHub**, **LinkedIn**, and **contact information**
+```sh
+pnpm install
+pnpm dev
+```
 
-## 🛠️ **Technologies Used**
+Portfolio entries live in `app/static/content-en.json` and `content-tr.json`.
+Interface translations live in `i18n/locales/`; shared social links live in `app/static/common.json`.
 
-- **Frontend:** Vue.js, Nuxt.js
-- **Backend:** Node.js, Supabase
-- **Deployment:** Vercel
-- **Styling:** Tailwind CSS
-- **Other Tools:** GitHub Actions for CI/CD
+## Checks
 
-## 🚀 **Features**
+```sh
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm test:integration
+pnpm preview
+pnpm audit
+```
 
-- Interactive project showcases with detailed descriptions
-- Smooth navigation and responsive layout
-- Professional certificates and education sections
+The unit tests cover contact validation and carousel reading times. Integration tests require a production build and start a local SMTP stub; they never send external email. They verify both locales, résumé files, the sitemap, 404s, invalid input, successful SMTP acceptance, and delivery errors.
 
-## 🌐 **Live Demo**
+TypeScript stays on 5.9 for the Vue type-checking toolchain; evaluate a compiler major upgrade with `pnpm typecheck` before adopting it.
 
-You can visit the live site here: **[Personal Portfolio](https://portofolio-asharp97s-projects.vercel.app/)**
+## Contact form
 
-## 📝 **Contact**
+Copy `.env.example` to `.env` and configure your SMTP credentials for local development.
+Set the same environment variables in the production host. Credentials are read only on the server at runtime.
 
-Feel free to reach out:
+The API accepts POST requests at `/api/sendMail`, validates and trims the same fields as the form, and returns `{ success: true }` after SMTP acceptance. SMTP acceptance is not a guarantee of inbox delivery.
 
-- **Email:** [ali-hisham@hotmail.com](mailto:ali-hisham@hotmail.com)
-- **LinkedIn:** [Ali Elsayed](https://www.linkedin.com/in/ali-elsayed-25974b130/)
-- **GitHub:** [AliElsayed](https://github.com/Asharp97)
+`pnpm build` prerenders both language pages and keeps the server API. A static-only host such as GitHub Pages cannot run the contact API; use a Nitro-compatible host such as the existing Vercel deployment.
+
+See [performance notes](PERFORMANCE_OPTIMIZATIONS.md) and [SEO checks](SEO_CHECKLIST.md).

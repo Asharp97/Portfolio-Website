@@ -1,231 +1,70 @@
 <template>
-  <div>
-    <ClientOnly>
-      <Swiper
-        class="h-full flex items-center"
-        :allow-slide-next="!swiperLock"
-        :allow-slide-prev="!swiperLock"
-        @swiper="onSwiper">
-        <Swiper-slide>
-          <div class="flex flex-wrap gap-8 h-full">
-            <div
-              class="flex-1 rounded-lg text-md text-gray-800 dark:text-gray-50 transition duration-300"
-              @click="$emit('triggerFollower')"
-              @mouseenter="$emit('enableTooltip')"
-              @mouseleave="$emit('disableTooltip')">
-              <p class="text-3xl font-light text-right">
-                {{ $t("message.text") }}
-              </p>
-            </div>
-            <UForm
-              :state="state"
-              class="space-y-4 w-full sm:w-1/2"
-              @submit="onSubmit">
-              <TransitionGroup name="list">
-                <div :key="'email'">
-                  <UFormField name="email">
-                    <UInput
-                      v-model="state.email"
-                      :placeholder="t('placeholder.email')"
-                      @blur="
-                        () => {
-                          validate('email');
-                          clearErrorAfterDelay('email');
-                        }
-                      " />
-                  </UFormField>
-                </div>
-                <div
-                  v-if="errorMsg['email']"
-                  :key="'email-error'"
-                  :class="errorClass">
-                  {{ errorMsg["email"] }}
-                </div>
-                <div :key="'name'">
-                  <UFormField name="name">
-                    <UInput
-                      v-model="state.name"
-                      :placeholder="t('placeholder.name')"
-                      @blur="
-                        () => {
-                          validate('name');
-                          clearErrorAfterDelay('name');
-                        }
-                      " />
-                  </UFormField>
-                </div>
-                <div
-                  v-if="errorMsg['name']"
-                  :key="'name-error'"
-                  :class="errorClass">
-                  {{ errorMsg["name"] }}
-                </div>
-                <div :key="'msg'">
-                  <UFormField name="msg">
-                    <UTextarea
-                      v-model="state.msg"
-                      :placeholder="t('placeholder.message')"
-                      @blur="
-                        () => {
-                          validate('msg');
-                          clearErrorAfterDelay('msg');
-                        }
-                      " />
-                  </UFormField>
-                </div>
-                <div
-                  v-if="errorMsg['msg']"
-                  :key="'msg-error'"
-                  :class="errorClass">
-                  {{ errorMsg["msg"] }}
-                </div>
-                <div :key="'submit'">
-                  <UButton type="submit">
-                    {{ $t("placeholder.button") }}
-                  </UButton>
-                </div>
-              </TransitionGroup>
-            </UForm>
-          </div>
-        </Swiper-slide>
-        <Swiper-slide>
-          <Feedback icon="eos-icons:three-dots-loading">
-            {{ $t("message.Loading") }}
-          </Feedback>
-        </Swiper-slide>
-        <Swiper-slide>
-          <Feedback icon="line-md:confirm-circle-twotone">
-            {{ $t("message.Success") }}
-          </Feedback>
-        </Swiper-slide>
-        <Swiper-slide>
-          <Feedback icon="material-symbols:error">
-            {{ $t("message.Error") }}
-
-            <UButton @click="goToSlide(0)">
-              {{ $t("message.button") }}
-            </UButton>
-          </Feedback>
-        </Swiper-slide>
-      </Swiper>
-    </ClientOnly>
+  <div aria-live="polite" :aria-busy="status === 'loading'">
+    <div v-if="status === 'idle'" class="flex flex-wrap gap-8 h-full">
+      <div
+        class="flex-1 rounded-lg text-md text-gray-800 dark:text-gray-50 transition duration-300"
+        @click="$emit('triggerFollower')"
+        @mouseenter="$emit('enableTooltip')"
+        @mouseleave="$emit('disableTooltip')">
+        <p class="text-3xl font-light text-right">{{ t("message.text") }}</p>
+      </div>
+      <UForm :schema="schema" :state="state" class="space-y-4 w-full sm:w-1/2" @submit="onSubmit">
+        <UFormField name="email">
+          <UInput
+            v-model="state.email" type="email" autocomplete="email" :maxlength="254"
+            :aria-label="t('placeholder.email')" :placeholder="t('placeholder.email')" />
+        </UFormField>
+        <UFormField name="name">
+          <UInput
+            v-model="state.name" autocomplete="name" :maxlength="100"
+            :aria-label="t('placeholder.name')" :placeholder="t('placeholder.name')" />
+        </UFormField>
+        <UFormField name="msg">
+          <UTextarea
+            v-model="state.msg" :maxlength="10000"
+            :aria-label="t('placeholder.message')" :placeholder="t('placeholder.message')" />
+        </UFormField>
+        <UButton type="submit">{{ t("placeholder.button") }}</UButton>
+      </UForm>
+    </div>
+    <Feedback v-else-if="status === 'loading'" icon="lucide:loader-circle">
+      {{ t("message.Loading") }}
+    </Feedback>
+    <Feedback v-else-if="status === 'success'" icon="lucide:circle-check">
+      {{ t("message.Success") }}
+    </Feedback>
+    <Feedback v-else icon="lucide:circle-alert">
+      {{ t("message.Error") }}
+      <UButton @click="status = 'idle'">{{ t("message.button") }}</UButton>
+    </Feedback>
   </div>
 </template>
 
-<script setup>
-import { Swiper, SwiperSlide } from "swiper/vue";
-import "swiper/css";
-import { z } from "zod";
+<script setup lang="ts">
+import type { FormSubmitEvent } from "@nuxt/ui";
+import { createContactSchema, type ContactMessage } from "~~/shared/utils/contact";
+
 const { t } = useI18n();
-defineEmits(["enableTooltip", "disableTooltip", "triggerFollower"]);
+defineEmits<{ enableTooltip: []; disableTooltip: []; triggerFollower: [] }>();
+const state = reactive({ email: "", name: "", msg: "" });
+const schema = computed(() => createContactSchema(t));
+const status = ref<"idle" | "loading" | "success" | "error">("idle");
+const submitted = useCookie("form-submitted", { maxAge: 24 * 60 * 60 });
 
-const state = reactive({
-  email: "",
-  name: "",
-  msg: "",
-});
-const errorMsg = reactive({
-  email: "",
-  name: "",
-  msg: "",
-});
-const schema = z.object({
-  email: z.string().email({
-    message: t("validation.email"),
-  }),
-  name: z.string().min(2, {
-    message: t("validation.name_min", { min: 2 }),
-  }),
-  msg: z.string().min(10, {
-    message: t("validation.msg_min", { min: 10 }),
-  }),
+onMounted(() => {
+  if (submitted.value === "submitted") status.value = "success";
 });
 
-const validate = (field) => {
-  const { success, error } = schema.shape[field].safeParse(state[field]);
-  if (!success) {
-    errorMsg[field] = error.issues[0].message;
-  } else {
-    errorMsg[field] = "";
+async function onSubmit(event: FormSubmitEvent<ContactMessage>) {
+  if (status.value !== "idle") return;
+  status.value = "loading";
+  try {
+    const result = await $fetch("/api/sendMail", { method: "POST", body: event.data });
+    if (!result.success) throw new Error("Message not accepted");
+    submitted.value = "submitted";
+    status.value = "success";
+  } catch {
+    status.value = "error";
   }
-  return success;
-};
-
-const clearErrorAfterDelay = async (field) => {
-  await wait(3000);
-  errorMsg[field] = "";
-};
-const slider = ref(null);
-const onSwiper = async (swiper) => {
-  slider.value = swiper;
-  if (formSubmittedCookie.value === "submitted") {
-    await nextTick();
-    await goToSlide(2);
-  }
-};
-const errorClass = "text-red-500 text-sm";
-
-// Locking inverted: true = locked, false = free. Start unlocked so auto-slide works.
-const swiperLock = ref(false);
-
-const formSubmittedCookie = useCookie("form-submitted", {
-  expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 1 day
-});
-const onSubmit = async () => {
-  const validEmail = validate("email");
-  const validName = validate("name");
-  const validMsg = validate("msg");
-
-  if (validEmail && validName && validMsg) {
-    await goToSlide(1); // Loading slide
-
-    try {
-      const result = await $fetch("/api/sendMail", {
-        method: "POST",
-        body: JSON.stringify({
-          email: state.email.trim(),
-          name: state.name.trim(),
-          msg: state.msg.trim(),
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      // Check if the mail was accepted
-      if (result && result.accepted && result.accepted.length > 0) {
-        formSubmittedCookie.value = "submitted";
-        await goToSlide(2); // Success slide
-      } else {
-        await goToSlide(3); // Error slide
-      }
-    } catch (e) {
-      await goToSlide(3); // Error slide
-      console.error("Mail send error:", e);
-    }
-  }
-};
-const goToSlide = async (x) => {
-  if (!slider.value) return;
-  swiperLock.value = false; // unlock to allow navigation
-  await nextTick(); // ensure swiper DOM is ready before sliding
-  await slider.value.slideTo(x);
-  swiperLock.value = true; // re-lock after navigation
-};
+}
 </script>
-
-<style scoped>
-.list-move,
-.list-enter-active,
-.list-leave-active {
-  transition: all 300ms cubic-bezier(0.55, 0, 0.1, 1);
-}
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: scaleY(0.01) translate(30px, 0);
-}
-.list-leave-active {
-  position: absolute;
-}
-</style>

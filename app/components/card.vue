@@ -1,163 +1,144 @@
 <template>
-  <Transition name="tada" tag="div">
-    <div
-      v-show="mounted"
-      :style="{ '--delay': delay }"
-      class="rounded-2xl duration-300 h-full">
-      <UCard
-        :id="`#${name}`"
-        class="h-full duration-300 default-bg relative rounded-none">
+  <div class="rounded-2xl duration-300 h-full">
+    <UCard
+      class="h-full duration-300 relative rounded-none"
+      :ui="{
+        body:
+          name === 'hero'
+            ? `
+              p-0!
+              dark:bg-[url(/img/mountains.jpg)]
+              bg-cover bg-bottom`
+            : '',
+      }">
+      <div
+        v-if="content"
+        class="flex flex-col sm:flex-row h-90 sm:h-full sm:items-center gap-2 w-full">
         <div
-          v-if="content"
-          class="flex flex-col sm:flex-row h-90 sm:h-full sm:items-center gap-2 w-full">
-          <div
-            class="flex sm:w-1/2 flex-1 lg:h-60 duration-300 w-full md:h-90 h-50">
-            <ClientOnly>
-              <Swiper
-                class="w-full"
-                :modules="[Autoplay]"
-                :rewind="true"
-                :breakpoints="{
-                  '640': {
-                    direction: 'horizontal',
-                  },
-                  '768': {
-                    direction: 'vertical',
-                  },
-                }"
-                :space-between="50"
-                :speed="swiperSpeed"
-                :autoplay="{
-                  delay: contentDelay,
-                  disableOnInteraction: false,
-                }"
-                @swiper="onSwiper"
-                @slide-change="onSlideChange">
-                <Swiper-slide v-for="(e, n) in content" :key="n">
-                  <div
-                    class="flex flex-col justify-between h-full duration-500">
+          class="flex sm:w-1/2 flex-1 lg:h-60 duration-300 w-full md:h-90 h-50">
+          <Swiper
+            class="w-full"
+            :modules="[Autoplay]"
+            :rewind="true"
+            :breakpoints="{
+              '640': {
+                direction: 'horizontal',
+              },
+              '768': {
+                direction: 'vertical',
+              },
+            }"
+            :space-between="50"
+            :speed="400"
+            :autoplay="content.length > 1 ? { delay: 3000, disableOnInteraction: false } : false"
+            @swiper="onSwiper"
+            @slide-change="onSlideChange">
+            <Swiper-slide v-for="e in content" :key="e.title" :data-swiper-autoplay="getDelayByContent(e)">
+              <div
+                class="flex flex-col justify-between h-full duration-500">
+                <div>
+                  <div class="flex justify-between gap-2">
                     <div>
-                      <div class="flex justify-between gap-2">
-                        <div>
-                          <NuxtLink
-                            :to="e.titleLink"
-                            target="_blank"
-                            class="inline-flex">
-                            <h5
-                              class="text-2xl sm:text-4xl font-light group w-fit">
-                              {{ e.title }}
-                            </h5>
-                            <span v-if="e.titleLink" class="mt-auto ml-2"
-                              ><Icon
-                                class="text-sm group-hover:translate-x-1 group-hover:-translate-y-1 duration-300"
-                                name="cuida:open-in-new-tab-outline"
-                            /></span>
-                          </NuxtLink>
-                          <NuxtLink :to="e.subtitleLink" target="_blank">
-                            <h2
-                              class="group text-copper-700 dark:text-gray-400">
-                              {{ e.subtitle }}
-                              <span v-if="e.subtitleLink"
-                                ><Icon
-                                  class="text-sm group-hover:translate-x-1 group-hover:-translate-y-1 duration-300"
-                                  name="cuida:open-in-new-tab-outline"
-                              /></span>
-                            </h2>
-                          </NuxtLink>
-                        </div>
-                        <div v-if="e.date || e.location" class="text-right">
-                          <h6>{{ e.date }}</h6>
-                          <USeparator
-                            v-if="e.location"
-                            :decorative="true"
-                            class="my-1"
-                            color="secondry" />
-                          <h6 class="font-light">{{ e.location }}</h6>
-                        </div>
-                      </div>
-
-                      <div v-if="e.tags" class="flex flex-wrap gap-1 mt-0.5">
-                        <div
-                          v-for="(tag, j) in e.tags"
-                          :key="j"
-                          :class="j > 2 ? 'hidden md:block' : ''"
-                          class="text-white dark:bg-slate-700 dark:hover:bg-slate-500 bg-copper-500 hover:bg-copper-700 duration-300 cursor-pointer p-1 rounded-lg">
-                          {{ tag }}
-                        </div>
-                      </div>
+                      <NuxtLink
+                        :to="e.titleLink"
+                        target="_blank"
+                        class="inline-flex">
+                        <h5
+                          class="text-2xl sm:text-4xl font-light group w-fit">
+                          {{ e.title }}
+                        </h5>
+                        <span v-if="e.titleLink" class="mt-auto ml-2"
+                        ><Icon
+                          class="text-sm group-hover:translate-x-1 group-hover:-translate-y-1 duration-300"
+                          name="lucide:arrow-up-right"
+                        /></span>
+                      </NuxtLink>
+                      <NuxtLink v-if="e.subtitle" :to="e.subtitleLink" target="_blank">
+                        <h2
+                          class="group text-copper-700 dark:text-gray-400">
+                          {{ e.subtitle }}
+                          <span v-if="e.subtitleLink"
+                          ><Icon
+                            class="text-sm group-hover:translate-x-1 group-hover:-translate-y-1 duration-300"
+                            name="lucide:arrow-up-right"
+                          /></span>
+                        </h2>
+                      </NuxtLink>
                     </div>
-                    <Mark-down v-if="e.description" :text="e.description" />
-                    <ul v-if="e.points" class="points">
-                      <li
-                        v-for="x in e.points"
-                        :key="x"
-                        class="flex gap-2 hover:bg-copper-100 dark:hover:bg-slate-500 duration-300 p-1 px-2 rounded-xl">
-                        <span class="w-37 font-semibold">{{ x.label }} </span>
-                        <span class="flex-1">{{ x.value }}</span>
-                      </li>
-                    </ul>
+                    <div v-if="e.date || e.location" class="text-right">
+                      <h6>{{ e.date }}</h6>
+                      <USeparator
+                        v-if="e.location"
+                        :decorative="true"
+                        class="my-1"
+                        color="neutral" />
+                      <h6 class="font-light">{{ e.location }}</h6>
+                    </div>
                   </div>
-                </Swiper-slide>
-              </Swiper>
-            </ClientOnly>
-          </div>
-          <div v-if="content.length > 1" class="w-fit flex md:flex-col">
-            <div
-              v-for="n in content.length"
-              :key="n"
-              class="flex justify-center p-1 pointer-cursor"
-              @mouseover="paginationHandle(n - 1)"
-              @click="paginationHandle(n - 1)">
-              <Hashtag :active="n - 1 === pagination" />
-            </div>
-          </div>
+
+                  <div v-if="e.tags" class="flex flex-wrap gap-1 mt-0.5">
+                    <div
+                      v-for="(tag, j) in e.tags"
+                      :key="j"
+                      :class="j > 2 ? 'hidden md:block' : ''"
+                      class="text-white   bg-copper-500 hover:bg-copper-700 duration-300 cursor-pointer p-1 rounded-lg">
+                      {{ tag }}
+                    </div>
+                  </div>
+                </div>
+                <Mark-down v-if="e.description" :text="e.description" />
+                <ul v-if="e.points" class="points">
+                  <li
+                    v-for="x in e.points"
+                    :key="x.label"
+                    class="flex gap-2 hover:bg-copper-100 dark:hover:bg-slate-500 duration-300 p-1 px-2 rounded-xl">
+                    <span class="w-37 font-semibold">{{ x.label }} </span>
+                    <span class="flex-1">{{ x.value }}</span>
+                  </li>
+                </ul>
+              </div>
+            </Swiper-slide>
+          </Swiper>
         </div>
-        <slot v-else class="flex items-center" />
-      </UCard>
-    </div>
-  </Transition>
+        <div v-if="content.length > 1" class="w-fit flex md:flex-col">
+          <button
+            v-for="n in content.length"
+            :key="n"
+            type="button"
+            :aria-label="`${name}: ${content[n - 1]?.title}`"
+            :aria-current="n - 1 === pagination ? 'true' : undefined"
+            class="flex justify-center p-1 cursor-pointer"
+            @mouseover="paginationHandle(n - 1)"
+            @click="paginationHandle(n - 1)">
+            <Hashtag :active="n - 1 === pagination" />
+          </button>
+        </div>
+      </div>
+      <div
+        v-else-if="name === 'hero'"
+        class="dark:bg-black/50 hover:dark:bg-black/60 duration-300 p-4 sm:p-6">
+        <slot />
+      </div>
+      <slot v-else />
+    </UCard>
+  </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper/modules";
+import type { Swiper as SwiperInstance } from "swiper";
+import type { PortfolioEntry } from "~/types/portfolio";
 import "swiper/css";
-import "swiper/css/autoplay";
+import getDelayByContent from "~/utils/getDelayByContent";
 
-import getDelay from "../utils/getDelayByContent.js";
-
-const slider = ref(null);
-
-const onSwiper = (swiper) => {
-  slider.value = swiper;
-  slider.value.slideTo(props.content.length, 300);
-};
-
-const props = defineProps(["content", "name", "delay"]);
-
+defineOptions({ name: "PortfolioCard" });
+defineProps<{ content?: PortfolioEntry[]; name?: string }>();
+const slider = shallowRef<SwiperInstance>();
 const pagination = ref(0);
-const contentDelay = ref();
-
-const onSlideChange = async (e) => {
-  pagination.value = e.activeIndex;
-
-  const currentContent = props.content[e.activeIndex];
-  contentDelay.value = getDelay(currentContent);
-};
-
-const paginationHandle = (e) => {
-  pagination.value = e;
-  if (slider.value) slider.value.slideTo(e);
-};
-
-const mounted = ref(false);
-const swiperSpeed = ref(400);
-onMounted(() => {
-  mounted.value = true;
-  nextTick(() => {
-    paginationHandle(0);
-  });
-});
+const onSwiper = (swiper: SwiperInstance) => { slider.value = swiper; };
+const onSlideChange = (swiper: SwiperInstance) => { pagination.value = swiper.activeIndex; };
+const paginationHandle = (index: number) => { slider.value?.slideTo(index); };
 </script>
 
 <style scoped>
@@ -165,7 +146,7 @@ onMounted(() => {
   list-style: disc;
 }
 .swiper-slide {
-  transition: 300ms;
+  transition: filter 300ms;
 }
 .swiper-slide-active {
   gap: 0;
@@ -177,8 +158,5 @@ onMounted(() => {
 .swiper-slide-next {
   filter: blur(2px);
 }
-.tada-enter-active,
-.tada {
-  transition-delay: var(--delay);
-}
+
 </style>

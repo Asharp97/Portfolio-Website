@@ -3,17 +3,20 @@
     :class="['noise', { loaded: mounted }]"
     class="bg-[var(--overlay)] dark:bg-transparent" />
 </template>
-<script setup>
+<script setup lang="ts">
 const mounted = ref(false);
+let cancelLoad: (() => void) | undefined;
 onMounted(() => {
-  // Defer noise texture loading to not block FCP
-  requestIdleCallback(
-    () => {
-      mounted.value = true;
-    },
-    { timeout: 1000 }
-  );
+  const load = () => { mounted.value = true; };
+  if (typeof window.requestIdleCallback === "function") {
+    const id = window.requestIdleCallback(load, { timeout: 1000 });
+    cancelLoad = () => window.cancelIdleCallback(id);
+  } else {
+    const id = window.setTimeout(load, 0);
+    cancelLoad = () => window.clearTimeout(id);
+  }
 });
+onBeforeUnmount(() => cancelLoad?.());
 </script>
 <style>
 .noise {
@@ -34,14 +37,18 @@ onMounted(() => {
   left: -10rem;
   top: -10rem;
   opacity: 0;
-  will-change: transform;
-  animation: noise 1s steps(2) infinite;
   transition: opacity 0.3s ease;
 }
 
 .noise.loaded::after {
   background-image: url(/img/noise.jpg);
   opacity: 0.08;
+  animation: noise 1s steps(2) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .noise.loaded::after {
+    animation: none;
+  }
 }
 @keyframes noise {
   0% {

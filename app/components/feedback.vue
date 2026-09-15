@@ -16,8 +16,7 @@
   </div>
 </template>
 
-<script setup>
-defineProps(["icon"]);
+<script setup lang="ts">
+defineOptions({ name: "FormFeedback" });
+defineProps<{ icon: string }>();
 </script>
-
-<style lang="scss" scoped></style>

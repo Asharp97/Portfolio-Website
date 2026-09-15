@@ -1,16 +1,7 @@
 {
   "footer": ["Tüm hakları saklıdır", "İstanbul’da ❤️'la geliştirildi"],
-  "titles": [
-    "Deneyimler",
-    "Yetenekler",
-    "Projeler",
-    "Eğitim",
-    "Diller",
-    "Sertifikalar"
-  ],
   "summary": "{{years}}+ yıllık deneyime sahip **Makine Öğrenmesi** ve **Full-Stack Yazılım Mühendisi**. **TensorFlow**, **Vue.js**, **React**, **NestJS** ve **Python** kullanarak akıllı, ölçeklenebilir uygulamalar geliştirme konusunda uzman. **Çevik ortamlarda** **yüksek performanslı** backend sistemleri, **GraphQL API'ları** ve **Elasticsearch** ile arama özellikleri sunma becerisine sahip. Gerçek dünya etkisi için yüksek performanslı kod geliştiriyorum.",
   "languages": {
-    "title": "Diller",
     "points": [
       { "label": "İngilizce", "value": 100 },
       { "label": "Arapça", "value": 100 },
@@ -44,9 +35,9 @@
       "tags": ["Nuxt.js", "Node.js", "TypeScript", "OpenAI API", "RAG", "SaaS"]
     },
     {
-      "title": "Landclub",
+      "title": "ArsaJet",
       "subtitle": "Bir gayrimenkul yatırım şirketi için yan proje",
-      "description": "**Landclub** adlı e-ticaret gayrimenkul platformunu geliştirdim. Özel bir yönetim paneli, kolay mülk yükleme sistemi ve **%97 performans skoru** ile tamamlandı. Ölçeklenebilirlik, duyarlı tasarım ve temiz kullanıcı deneyimine odaklandım.",
+      "description": "**ArsaJet** adlı e-ticaret gayrimenkul platformunu geliştirdim. Özel bir yönetim paneli, kolay mülk yükleme sistemi ve **%97 performans skoru** ile tamamlandı. Ölçeklenebilirlik, duyarlı tasarım ve temiz kullanıcı deneyimine odaklandım.",
       "tags": [
         "Next.js",
         "Yönetim Paneli",

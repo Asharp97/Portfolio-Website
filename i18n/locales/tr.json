@@ -2,7 +2,8 @@
   "error": {
     "header": "Hata! Bu sayfa yok.",
     "text": "Galiba yanlışlıkla kayboldun. Sorun değil — seni ana sayfaya götürelim.",
-    "button": "Ana Sayfa"
+    "button": "Ana Sayfa",
+    "generic": "Bir şeyler ters gitti."
   },
   "title": {
     "hero": "Merhabalar",
@@ -35,5 +36,9 @@
   "cookie": {
     "message": "Selam, Tercihlerinizi hatırlamak için çerezleri kullanıyorum.",
     "subtitle": "Merak etme, bunlar masum çerezler 😋"
+  },
+  "theme": {
+    "light": "Açık temaya geç",
+    "dark": "Koyu temaya geç"
   }
 }

@@ -1,6 +1,5 @@
 const inputBaseSettings =
   "bg-white! dark:bg-slate-200! placeholder:text-gray-800 text-black! placeholder:font-light w-full";
-const inputRootSettings = "w-full ";
 
 export default defineAppConfig({
   // https://ui.nuxt.com/getting-started/theme#design-system
@@ -17,7 +16,6 @@ export default defineAppConfig({
         variant: {
           solid: {
             root: "bg-inverted text-inverted bg-white dark:bg-dark-500 dark:text-white text-black flex items-center group-hover/outer:scale-99",
-            base: "w-full",
           },
         },
       },
@@ -32,7 +30,7 @@ export default defineAppConfig({
     },
     input: {
       slots: {
-        root: inputRootSettings,
+        root: "w-full",
         base: inputBaseSettings,
       },
       defaultVariants: {
@@ -41,7 +39,7 @@ export default defineAppConfig({
     },
     textarea: {
       slots: {
-        root: inputRootSettings,
+        root: "w-full",
         base: inputBaseSettings,
       },
       defaultVariants: {

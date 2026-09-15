@@ -1,20 +1,13 @@
-<script setup>
-const props = defineProps(["text"]);
-
-const parseBold = () => {
-  return props.text.split(/\*\*(.+?)\*\*/g);
-};
+<script setup lang="ts">
+const props = defineProps<{ text: string }>();
+const parts = computed(() => props.text.split(/\*\*(.+?)\*\*/g));
 </script>
 
 <template>
   <div>
-    <span v-for="(part, index) in parseBold(text)" :key="index">
-      <template v-if="index % 2 === 1">
-        <strong>{{ part }}</strong>
-      </template>
-      <template v-else>
-        {{ part }}
-      </template>
-    </span>
+    <template v-for="(part, index) in parts" :key="index">
+      <strong v-if="index % 2 === 1">{{ part }}</strong>
+      <template v-else>{{ part }}</template>
+    </template>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="-translatex-20 -translate-y-42"
+    class="pointer-events-none -translate-x-20 -translate-y-42"
     :style="{
       transform: `translate(${x}px, ${y}px)`,
     }">
@@ -18,13 +18,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { AnimatePresence, motion } from "motion-v";
 import { useMouse } from "@vueuse/core";
 const { x, y } = useMouse();
-defineProps(["text", "enableFollower"]);
+defineProps<{ text: string; enableFollower: boolean }>();
 
-// Example usage in your animation:
 const animateFrom = {
   opacity: 0,
   y: -50,
@@ -36,10 +35,10 @@ const animateTo = {
   filter: "blur(0px)",
 };
 const transition = {
-  type: "spring",
+  type: "spring" as const,
   stiffness: 500,
   damping: 30,
   duration: 0.2,
-  filter: { type: "tween", duration: 0.2 },
+  filter: { type: "tween" as const, duration: 0.2 },
 };
 </script>

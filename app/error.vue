@@ -1,33 +1,24 @@
 <template>
-  <div class="h-dvh flex justify-center items-center">
-    <Noise-overlay />
-    <h5
-      class="text-[50rem] w-full h-full flex justify-center items-center font-black dark:text-gray-950 text-amber-50 absolute -z-10">
-      404
-    </h5>
+  <div class="min-h-dvh flex justify-center items-center">
+    <NoiseOverlay />
     <div
-      class="text-black dark:text-white flex justify-center gap-4 flex-col text-center">
-      <h1>
-        {{ $t("error.header") }}
-      </h1>
-      <p>
-        {{ $t("error.text") }}
-      </p>
-      <NuxtLink
-        :to="`/${locale == 'tr' ? 'tr' : ''}`"
-        class="flex justify-center pointer-cursor">
-        <UButton>
-          <h2 class="uppercase">
-            {{ $t("error.button") }}
-          </h2>
-        </UButton>
-      </NuxtLink>
+      aria-hidden="true"
+      class="text-[30vw] font-black dark:text-gray-950 text-amber-50 absolute -z-10">
+      {{ error.statusCode }}
+    </div>
+    <div class="text-black dark:text-white flex justify-center gap-4 flex-col text-center">
+      <h1>{{ error.statusCode === 404 ? t("error.header") : t("error.generic") }}</h1>
+      <p>{{ t("error.text") }}</p>
+      <UButton class="mx-auto uppercase" @click="clearError({ redirect: localePath('/') })">
+        {{ t("error.button") }}
+      </UButton>
     </div>
   </div>
 </template>
 
-<script setup>
-const { locale } = useI18n();
+<script setup lang="ts">
+import type { NuxtError } from "#app";
+defineProps<{ error: NuxtError }>();
+const { t } = useI18n();
+const localePath = useLocalePath();
 </script>
-
-<style lang="scss" scoped></style>

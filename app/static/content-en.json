@@ -1,16 +1,7 @@
 {
   "footer": ["All rights reserved", "Made with ❤️ in Istanbul"],
-  "titles": [
-    "Experiences",
-    "Skills",
-    "Side-Projects",
-    "Education",
-    "Languages",
-    "Certificates"
-  ],
-  "summary": "**Machine Learning** & **Full-Stack Software Engineer** with {{years}}+ years of experience. Experienced in building smart, scalable apps using **TensorFlow**, **Vue.js**, **React**, **NestJS**, and **Python**, Skilled in delivering **high-performance** backend systems, **GraphQL APIs**, and search features with **Elasticsearch** in **Agile environments**. high-performance code for real-world impact.",
+  "summary": "**AI** & **Full-Stack Software Engineer** with {{years}}+ years of experience. Experienced in building smart, scalable apps using **TensorFlow**, **Vue.js**, **React**, **NestJS**, and **Python**, Skilled in delivering **high-performance** backend systems, **GraphQL APIs**, and search features with **Elasticsearch** in **Agile environments**. high-performance code for real-world impact.",
   "languages": {
-    "title": "Languages",
     "points": [
       { "label": "English", "value": 100 },
       { "label": "Arabic", "value": 100 },
@@ -37,6 +28,19 @@
   ],
   "projects": [
     {
+      "title": "PeerSlot",
+      "titleLink": "https://www.peerslot.com/",
+      "subtitle": "A full-stack scheduling platform for teachers and students",
+      "description": "Built **PeerSlot** with **conflict-aware booking**, drag-and-drop calendars, recurring sessions, and student management. Integrated Google/email authentication, automated notifications, and bilingual support, backed by automated regression tests.",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "Fullstack",
+        "Automated Testing"
+      ]
+    },
+    {
       "title": "Quizly",
       "subtitle": "A SaaS platform enabling users to create and take quizzes",
       "titleLink": "https://quizly-app.tiiny.site/",
@@ -44,15 +48,28 @@
       "tags": ["Nuxt.js", "Node.js", "TypeScript", "OpenAI API", "RAG", "SaaS"]
     },
     {
-      "title": "Landclub",
+      "title": "ArsaJet",
+      "titleLink": "https://arsa-jet.vercel.app/",
       "subtitle": "A side project for a real estate investment company",
-      "description": "Developed **Landclub**, a real estate e-commerce platform with a custom admin panel, streamlined property uploads, and a **97% performance score**. Focused on scalability, responsive design, and clean UX.",
+      "description": "Developed **ArsaJet**, a real estate e-commerce platform with a custom admin panel, streamlined property uploads, and a **97% performance score**. Focused on scalability, responsive design, and clean UX.",
       "tags": [
         "Next.js",
         "Admin Panel",
         "Fullstack",
         "State Management",
         "E-Commerce"
+      ]
+    },
+    {
+      "title": "Engiz",
+      "subtitle": "An educational coaching platform connecting students and counselors",
+      "description": "Engineered **Engiz’s backend** with secure role-based access, student and counselor profiles, and personalized study-plan management. Built a **Spring Boot modular monolith** with PostgreSQL, JWT authentication, and automated integration tests enforced through CI.",
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "Spring Security",
+        "Modular Monolith"
       ]
     }
   ],

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="cursor-pointer rounded-full w-fit text-xl text-white flex justify-center items-center duration-300 transition-all sharp"
+    class="cursor-pointer rounded-full w-fit text-xl text-white flex justify-center items-center duration-300 transition-all"
     :class="[
       active
         ? 'p-1 rotate-90 bg-copper-500 dark:bg-slate-500'
@@ -10,7 +10,7 @@
     ]">
     <Icon
       v-if="!logo"
-      name="majesticons:hashtag-line"
+      name="lucide:hash"
       class="pause-on-hover duration-300 transition-all animate-spin"
       :class="[
         active ? `opacity-100 text-lg` : 'opacity-0 text-xs',
@@ -18,17 +18,18 @@
       ]" />
     <Icon
       v-else
-      name="majesticons:hashtag-line"
+      name="lucide:hash"
       class="pause-on-hover duration-300 transition-all animate-spin-slower text-9xl" />
   </div>
 </template>
 
-<script setup>
-defineProps(["active", "logo"]);
+<script setup lang="ts">
+defineOptions({ name: "HashtagIcon" });
+defineProps<{ active?: boolean; logo?: boolean }>();
 </script>
 
 <style scoped>
-.animate-pause:hover {
+.pause-on-hover:hover {
   animation-play-state: paused;
 }
 </style>
