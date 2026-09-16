@@ -5,7 +5,7 @@ English lives at `/`; Turkish lives at `/tr`.
 
 ## Development
 
-Use Node.js 22.18+ or 24+ and pnpm 11+.
+Use Node.js 22.19+ within the 22.x release line and pnpm 11.24.0. The `packageManager` field pins pnpm for local installs and Vercel; the bounded Node.js engine range keeps deployments on 22.x.
 
 ```sh
 pnpm install
