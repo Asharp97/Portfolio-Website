@@ -41,6 +41,19 @@
       ]
     },
     {
+      "title": "Engiz",
+      "titleLink":"https://github.com/Asharp97/engiz",
+      "subtitle": "An educational coaching platform connecting students and counselors",
+      "description": "Engineered **Engiz’s backend** with secure role-based access, student and counselor profiles, and personalized study-plan management. Built a **Spring Boot modular monolith** with PostgreSQL, JWT authentication, and automated integration tests enforced through CI.",
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "Spring Security",
+        "Modular Monolith"
+      ]
+    },
+    {
       "title": "Quizly",
       "subtitle": "A SaaS platform enabling users to create and take quizzes",
       "titleLink": "https://quizly-app.tiiny.site/",
@@ -58,18 +71,6 @@
         "Fullstack",
         "State Management",
         "E-Commerce"
-      ]
-    },
-    {
-      "title": "Engiz",
-      "subtitle": "An educational coaching platform connecting students and counselors",
-      "description": "Engineered **Engiz’s backend** with secure role-based access, student and counselor profiles, and personalized study-plan management. Built a **Spring Boot modular monolith** with PostgreSQL, JWT authentication, and automated integration tests enforced through CI.",
-      "tags": [
-        "Java",
-        "Spring Boot",
-        "PostgreSQL",
-        "Spring Security",
-        "Modular Monolith"
       ]
     }
   ],

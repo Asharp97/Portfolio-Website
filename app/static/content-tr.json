@@ -28,6 +28,32 @@
   ],
   "projects": [
     {
+      "title": "PeerSlot",
+      "titleLink": "https://www.peerslot.com/",
+      "subtitle": "Öğretmenler ve öğrenciler için full-stack ders planlama platformu",
+      "description": "**PeerSlot** platformunu **rezervasyon çakışmalarını önleyen bir sistem**, sürükle-bırak takvimler, tekrarlayan dersler ve öğrenci yönetimi özellikleriyle geliştirdim. Google ve e-posta ile kimlik doğrulama, otomatik bildirimler ve iki dil desteği entegre ettim; sistemin güvenilirliğini otomatik regresyon testleriyle destekledim.",
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "Fullstack",
+        "Otomatik Test"
+      ]
+    },
+    {
+      "title": "Engiz",
+      "titleLink": "https://github.com/Asharp97/engiz",
+      "subtitle": "Öğrenciler ile danışmanları buluşturan bir eğitim koçluğu platformu",
+      "description": "**Engiz'in backend sistemini** güvenli rol tabanlı erişim, öğrenci ve danışman profilleri ve kişiselleştirilmiş çalışma planı yönetimi özellikleriyle geliştirdim. PostgreSQL ve JWT kimlik doğrulaması kullanan **Spring Boot tabanlı modüler bir monolit** kurdum; otomatik entegrasyon testlerini CI sürecinde zorunlu olarak çalışacak şekilde yapılandırdım.",
+      "tags": [
+        "Java",
+        "Spring Boot",
+        "PostgreSQL",
+        "Spring Security",
+        "Modüler Monolit"
+      ]
+    },
+    {
       "title": "Quizly",
       "subtitle": "Kullanıcıların kendi quizlerini oluşturup çözebildiği bir SaaS platformu",
       "titleLink": "https://quizly-app.tiiny.site/",
