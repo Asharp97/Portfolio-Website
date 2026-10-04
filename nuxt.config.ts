@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   app: {
     head: {
-      title: "Ali Elsayed | Machine Learning & Full-Stack Software Engineer",
+      title: "Ali Elsayed | AI Systems Engineer",
       htmlAttrs: {
         lang: "en",
       },
@@ -14,12 +14,12 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "Machine Learning & Full-Stack Software Engineer with 4+ years of experience. Specialized in TensorFlow, Vue.js, React, NestJS, and Python. Building smart, scalable applications in Istanbul.",
+            "AI Systems Engineer building intelligent applications, machine learning solutions, and scalable backend systems with Python, TensorFlow, NestJS, and GraphQL.",
         },
         {
           name: "keywords",
           content:
-            "Ali Elsayed, Software Engineer, Machine Learning Engineer, Full-Stack Developer, TensorFlow, Vue.js, React, NestJS, Python, GraphQL, Elasticsearch, Istanbul, Turkey",
+            "Ali Elsayed, AI Systems Engineer, AI Engineer, Machine Learning, TensorFlow, Vue.js, React, NestJS, Python, GraphQL, Elasticsearch, Istanbul, Turkey",
         },
         { name: "author", content: "Ali Elsayed" },
         { name: "robots", content: "index, follow" },
@@ -34,41 +34,41 @@ export default defineNuxtConfig({
         {
           property: "og:title",
           content:
-            "Ali Elsayed | Machine Learning & Full-Stack Software Engineer",
+            "Ali Elsayed | AI Systems Engineer",
         },
         {
           property: "og:description",
           content:
-            "Machine Learning & Full-Stack Software Engineer with 4+ years of experience building smart, scalable applications with TensorFlow, Vue.js, React, and Python.",
+            "AI Systems Engineer building intelligent applications, machine learning solutions, and scalable backend systems with Python, TensorFlow, NestJS, and GraphQL.",
         },
         { property: "og:site_name", content: "Ali Elsayed Portfolio" },
         {
           property: "og:image",
-          content: "https://ali-elsayed.vercel.app/og-image.jpg",
+          content: "https://ali-elsayed.vercel.app/og-image-ai-systems.jpg",
         },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },
         {
           property: "og:image:alt",
           content:
-            "Ali Elsayed - Machine Learning & Full-Stack Software Engineer",
+            "Ali Elsayed - AI Systems Engineer",
         },
 
         // Twitter Card
         { name: "twitter:card", content: "summary_large_image" },
         {
           name: "twitter:image",
-          content: "https://ali-elsayed.vercel.app/og-image.jpg",
+          content: "https://ali-elsayed.vercel.app/og-image-ai-systems.jpg",
         },
         {
           name: "twitter:title",
           content:
-            "Ali Elsayed | Machine Learning & Full-Stack Software Engineer",
+            "Ali Elsayed | AI Systems Engineer",
         },
         {
           name: "twitter:description",
           content:
-            "Machine Learning & Full-Stack Software Engineer specialized in TensorFlow, Vue.js, React, NestJS, and Python.",
+            "AI Systems Engineer building intelligent applications, machine learning solutions, and scalable backend systems with Python, TensorFlow, NestJS, and GraphQL.",
         },
 
         // Additional SEO
@@ -85,7 +85,7 @@ export default defineNuxtConfig({
             "@context": "https://schema.org",
             "@type": "Person",
             name: "Ali Elsayed",
-            jobTitle: "Machine Learning & Full-Stack Software Engineer",
+            jobTitle: "AI Systems Engineer",
             url: "https://ali-elsayed.vercel.app",
             sameAs: [
               "https://github.com/Asharp97",
@@ -112,7 +112,7 @@ export default defineNuxtConfig({
               "Python",
               "GraphQL",
               "Elasticsearch",
-              "Full-Stack Development",
+              "AI Systems Engineering",
             ],
           }),
         },

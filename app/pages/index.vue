@@ -88,6 +88,7 @@
                 <Hero-component
                   :locale="locale"
                   :sections="portfolioSections"
+                  :headline="content.headline"
                   :summary="content.summary"
                   :is-mobile="isMobile"
                   @set-title="activateContent" />
@@ -185,25 +186,25 @@ const portfolioSections = computed(() => [
 const localeHead = useLocaleHead({ seo: true });
 useHead(() => ({ link: localeHead.value.link, meta: localeHead.value.meta }));
 
-// Dynamic SEO meta tags based on locale
+// Keep the visible title and search/social previews consistent in each locale.
+const pageTitle = computed(() => `Ali Elsayed | ${content.value.headline}`);
+const pageDescription = computed(() =>
+  locale.value === "tr"
+    ? "Python, TensorFlow, NestJS ve GraphQL ile akıllı uygulamalar, makine öğrenmesi çözümleri ve ölçeklenebilir backend sistemleri geliştiren Yapay Zekâ Sistemleri Mühendisi."
+    : "AI Systems Engineer building intelligent applications, machine learning solutions, and scalable backend systems with Python, TensorFlow, NestJS, and GraphQL.",
+);
 useHead({
-  title: computed(() =>
-    locale.value === "tr"
-      ? "Ali Elsayed | Makine Öğrenmesi & Full-Stack Yazılım Mühendisi"
-      : "Ali Elsayed | Machine Learning & Full-Stack Software Engineer",
-  ),
+  title: pageTitle,
   htmlAttrs: {
     lang: computed(() => locale.value),
   },
   meta: [
-    {
-      name: "description",
-      content: computed(() =>
-        locale.value === "tr"
-          ? "4+ yıllık deneyime sahip Makine Öğrenmesi ve Full-Stack Yazılım Mühendisi. TensorFlow, Vue.js, React, NestJS ve Python konularında uzman. İstanbul'da akıllı ve ölçeklenebilir uygulamalar geliştiriyorum."
-          : "Machine Learning & Full-Stack Software Engineer with 4+ years of experience. Specialized in TensorFlow, Vue.js, React, NestJS, and Python. Building smart, scalable applications in Istanbul.",
-      ),
-    },
+    { name: "description", content: pageDescription },
+    { property: "og:title", content: pageTitle },
+    { property: "og:description", content: pageDescription },
+    { property: "og:image:alt", content: pageTitle },
+    { name: "twitter:title", content: pageTitle },
+    { name: "twitter:description", content: pageDescription },
     {
       property: "og:locale",
       content: computed(() => (locale.value === "tr" ? "tr_TR" : "en_US")),

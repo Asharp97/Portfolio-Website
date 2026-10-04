@@ -8,6 +8,9 @@
           </h1>
           <text-split v-else text="Ali Elsayed" tag="h1" />
         </NuxtLink>
+        <p class="mt-3 text-xl sm:text-2xl font-thin tracking-wide">
+          {{ headline }}
+        </p>
       </div>
       <div class="flex flex-1 justify-between flex-wrap gap-2 w-full">
         <nav class="hidden md:block">
@@ -62,7 +65,7 @@
 <script setup lang="ts">
 import common from "../static/common.json";
 import { useMounted } from "@vueuse/core";
-const props = defineProps<{ sections: { id: string; title: string }[]; summary: string; locale: string; isMobile: boolean }>();
+const props = defineProps<{ sections: { id: string; title: string }[]; summary: string; headline: string; locale: string; isMobile: boolean }>();
 const emit = defineEmits<{ setTitle: [key: string] }>();
 const mounted = useMounted();
 const processedSummary = computed(() => {

@@ -1,6 +1,7 @@
 {
   "footer": ["All rights reserved", "Made with ❤️ in Istanbul"],
-  "summary": "**AI** & **Full-Stack Software Engineer** with {{years}}+ years of experience. Experienced in building smart, scalable apps using **TensorFlow**, **Vue.js**, **React**, **NestJS**, and **Python**, Skilled in delivering **high-performance** backend systems, **GraphQL APIs**, and search features with **Elasticsearch** in **Agile environments**. high-performance code for real-world impact.",
+  "headline": "AI Systems Engineer",
+  "summary": "**{{years}}+ years of experience** building intelligent applications and scalable backend systems. I develop **machine learning solutions** with **Python** and **TensorFlow**, build **GraphQL APIs** and search features with **NestJS** and **Elasticsearch**, and use **Vue.js** and **React** to deliver complete products. My focus is turning AI capabilities into reliable applications that solve real problems.",
   "languages": {
     "points": [
       { "label": "English", "value": 100 },

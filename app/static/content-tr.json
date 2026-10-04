@@ -1,6 +1,7 @@
 {
   "footer": ["Tüm hakları saklıdır", "İstanbul’da ❤️'la geliştirildi"],
-  "summary": "{{years}}+ yıllık deneyime sahip **Makine Öğrenmesi** ve **Full-Stack Yazılım Mühendisi**. **TensorFlow**, **Vue.js**, **React**, **NestJS** ve **Python** kullanarak akıllı, ölçeklenebilir uygulamalar geliştirme konusunda uzman. **Çevik ortamlarda** **yüksek performanslı** backend sistemleri, **GraphQL API'ları** ve **Elasticsearch** ile arama özellikleri sunma becerisine sahip. Gerçek dünya etkisi için yüksek performanslı kod geliştiriyorum.",
+  "headline": "Yapay Zekâ Sistemleri Mühendisi",
+  "summary": "**{{years}}+ yıllık deneyimle** akıllı uygulamalar ve ölçeklenebilir backend sistemleri geliştiriyorum. **Python** ve **TensorFlow** ile **makine öğrenmesi çözümleri**, **NestJS** ve **Elasticsearch** ile **GraphQL API’ları** ve arama özellikleri geliştiriyor; **Vue.js** ve **React** ile uçtan uca ürünler sunuyorum. Yapay zekâyı gerçek ihtiyaçlara çözüm sunan güvenilir uygulamalara dönüştürmeye odaklanıyorum.",
   "languages": {
     "points": [
       { "label": "İngilizce", "value": 100 },
