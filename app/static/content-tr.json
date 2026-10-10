@@ -29,6 +29,20 @@
   ],
   "projects": [
     {
+      "title": "FaultBrief",
+      "titleLink": "https://www.FaultBrief.com/",
+      "subtitle": "SaaS hatalarını kanıta dayalı olarak araştıran yapay zekâ platformu",
+      "description": "**FaultBrief’i**, asenkron işçiler, tanılama araçları ve **RAG** ile kök neden raporları üreten bir yapay zekâ platformu olarak geliştirdim. **PEFT/LoRA** ile yönlendirme modeline ince ayar uyguladım; güvenli erişim ve CI üzerinden otomatik testler ekledim.",
+      "tags": [
+        "FastAPI",
+        "AI Agents",
+        "RAG",
+        "Pydantic",
+        "Hugging Face",
+        "PEFT / LoRA"
+      ]
+    },
+    {
       "title": "PeerSlot",
       "titleLink": "https://www.peerslot.com/",
       "subtitle": "Öğretmenler ve öğrenciler için full-stack ders planlama platformu",

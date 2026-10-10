@@ -29,6 +29,20 @@
   ],
   "projects": [
     {
+      "title": "FaultBrief",
+      "titleLink": "https://www.FaultBrief.com/",
+      "subtitle": "An evidence-driven AI investigator for customer-specific SaaS failures",
+      "description": "Built **FaultBrief’s AI investigator** with asynchronous workers, diagnostic tools, and **RAG** for evidence-backed root-cause reports. Fine-tuned a router with **PEFT/LoRA** and implemented secure workspace access with automated testing enforced through CI.",
+      "tags": [
+        "FastAPI",
+        "AI Agents",
+        "RAG",
+        "Pydantic",
+        "Hugging Face",
+        "PEFT / LoRA"
+      ]
+    },
+    {
       "title": "PeerSlot",
       "titleLink": "https://www.peerslot.com/",
       "subtitle": "A full-stack scheduling platform for teachers and students",
@@ -41,9 +55,10 @@
         "Automated Testing"
       ]
     },
+
     {
       "title": "Engiz",
-      "titleLink":"https://github.com/Asharp97/engiz",
+      "titleLink": "https://github.com/Asharp97/engiz",
       "subtitle": "An educational coaching platform connecting students and counselors",
       "description": "Engineered **Engiz’s backend** with secure role-based access, student and counselor profiles, and personalized study-plan management. Built a **Spring Boot modular monolith** with PostgreSQL, JWT authentication, and automated integration tests enforced through CI.",
       "tags": [
