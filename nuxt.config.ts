@@ -149,6 +149,12 @@ export default defineNuxtConfig({
     "/": {
       prerender: true,
     },
+    "/favicon": {
+      prerender: false,
+    },
+    "/tr/favicon": {
+      prerender: false,
+    },
   },
 
   nitro: {

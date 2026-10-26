@@ -3,3 +3,8 @@
     <Hashtag :active="true" :logo="true" class="m-auto w-50" />
   </div>
 </template>
+<script setup lang="ts">
+definePageMeta({
+  middleware: "dev-only",
+});
+</script>
